@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] is '{' and pline[-1] is '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -123,7 +123,8 @@ class HBNBCommand(cmd.Cmd):
         dic_t = {}
         if len(arg) > 1:
             args = arg[1:]
-            dic_t = {a.split('=')[0]: eval(a.split('=')[1].replace('_', ' ')) for a in args}
+            dic_t = {a.split('=')[0]: eval(a.split('=')[1].
+                                           replace('_', ' ')) for a in args}
         if clss not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
