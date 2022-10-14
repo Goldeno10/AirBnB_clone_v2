@@ -22,16 +22,16 @@ class DbStorage:
 
     def __init__(self):
         """ Initialize variables """
-        user = ( "HBNB_MYSQL_USER")
-        passwd = ("HBNB_MYSQL_PWD")
-        db = ("HBNB_MYSQL_DB")
-        host = ("HBNB_MYSQL_HOST")
-        env = ("HBNB_ENV")
-        self.__engine = ("mysql+mysqldb://{}:{}@{}/{}".
-                         format(user, passwd, host, db),
-                         pool_pre_ping=True)
-        Session = sessionmaker(bind=engine)
-        self__.session = Session()
+        user = getenv('HBNB_MYSQL_USER')
+        passwd= getenv('HBNB_MYSQL_PWD')
+        host = getenv('HBNB_MYSQL_HOST')
+        db = getenv('HBNB_MYSQL_DB')
+        env = getenv('HBNB_ENV')
+        self.__engine = ("mysql+mysqldb://{}:{}@{}/{}"
+                         .format(user, passwd, host, db))
+                        # pool_pre_ping=True)
+        Session = sessionmaker(bind=self.__engine)
+        self.__session = Session()
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -67,7 +67,11 @@ class DbStorage:
     def reload(self):
         """ Creates all tables in the database """
         Base.metadata.create_all(self.__engine)
-        session = sessionmaker(bind=self.engine,
+        session = sessionmaker(bind=self.__engine,
                                expire_on_commit=False)
-        sess_scope = scoped_session(session)
-        self.__session(sess_scope)
+        Sess_scope = scoped_session(session)
+        self.__session = Sess_scope
+
+    def close(self):
+        """call remove() method on the private session attribute"""
+        self.__session.remove()
