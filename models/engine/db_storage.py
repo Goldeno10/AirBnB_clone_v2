@@ -41,13 +41,16 @@ class DBStorage:
         dic = {}
         if not cls:
             for i in cls_list:
-                obj = self.__session.query(i).all()
-                key = f'{i}.{obj}'
-                dic[key] = obj
+                query = self.__session.query(i)
+                for item in query:
+                    key = f'{type(i)}.{item.id}'
+                    dic[key] = query
         else:
-            obj = self.__session.query(i).all()
-            key = f'{i}.{obj}'
-            dic[key] = obj
+            cls = i if type(i) == str else eval(i)
+            query = self.__session.query(i)
+            for item in query:
+                key = f'{type(item)}.{item.id}'
+                dic[key] = query
         return (dic)
 
     def new(self, obj):

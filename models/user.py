@@ -9,7 +9,7 @@ from models.review import Review
 
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
-    if storage_t == 'db':
+    if storage_t and storage_t == 'db':
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
