@@ -6,11 +6,10 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 
-
 class State(BaseModel, Base):
-    """ State class """
+    """ The State class """
+    __tablename__ = 'states'
     if storage_t and storage_t == 'db':
-        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")
 

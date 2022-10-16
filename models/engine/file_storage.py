@@ -35,8 +35,8 @@ class FileStorage:
         """ Delete the current instance from the storage """
         if obj:
             key = f'{type(obj).__name__}.{obj.id}'
-            if key in self.__object:
-                del self.__object[key]
+            if key in self.__objects:
+                del self.__objects[key]
 
     def reload(self):
         """Loads storage dictionary from file"""
