@@ -11,8 +11,8 @@ def do_pack():
             local('mkdir versions')
         t = datetime.now()
         f = "%Y%m%d%H%M%S"
-        archive_path = 'versions/web_static_{}.tgz'.format(t.strftime(f))
-        local('tar -cvzf {} web_static'.format(archive_path))
+        archive_path = f"versions/web_static_{t.strftime(f)}.tgz"
+        local(f'tar -cvzf {archive_path} web_static/')
         return archive_path
     except Exception:
         return None
