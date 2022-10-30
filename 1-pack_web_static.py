@@ -7,11 +7,12 @@ web_static folder of your AirBnB Clone repo, using the function do_pack.
 
 import os
 from datetime import datetime
-from fabric.api import *
+from fabric.api import local
 
 
 def do_pack():
     """ Compresses a folder and contents to a tgz archive """
+
     try:
         if not os.path.exists("versions"):
             local('mkdir versions')
@@ -21,3 +22,4 @@ def do_pack():
         return archive_path
     except Exception:
         return None
+
