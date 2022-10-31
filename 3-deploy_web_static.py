@@ -11,7 +11,7 @@ from fabric.api import env, local, put, run
 
 
 env.hosts = ['34.204.198.163', '54.85.106.26']
-# env.user = 'ubuntu'
+env.user = 'ubuntu'
 # env.key_filename = '/path/to/rsa/key/file'
 
 
