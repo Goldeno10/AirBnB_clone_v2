@@ -15,20 +15,6 @@ env.hosts = ['34.204.198.163', '54.85.106.26']
 # env.key_filename = '/path/to/rsa/key/file'
 
 
-def do_pack():
-    """ Compresses a folder and contents to a tgz archive """
-
-    try:
-        if not os.path.exists("versions"):
-            local('mkdir versions')
-        date = datetime.now().strftime("%Y%m%d%H%M%S")
-        archive_path = "versions/web_static_{}.tgz".format(date)
-        local('tar -cvzf {} web_static/'.format(archive_path))
-        return archive_path
-    except Exception:
-        return None
-
-
 def do_deploy(archive_path):
     """ Distributes an archive to your web servers """
     if not os.path.exists(archive_path):
