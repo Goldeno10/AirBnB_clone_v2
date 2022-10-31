@@ -37,7 +37,7 @@ def do_deploy(archive_path):
         # Archive fullname with extension
         arch_f_n = archive_path.split("/")[-1]
         # Archive name without Extension
-        arch_n_x = archive_f_n.split(".")[0]
+        arch_n_x = arch_f_n.split(".")[0]
         path = "/data/web_static/releases/"
         put(archive_path, '/temp/')
         run("mkdir -p {}{}/".format(path, arch_n_x))
