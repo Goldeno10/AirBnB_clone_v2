@@ -40,13 +40,13 @@ def do_deploy(archive_path):
         arch_n_x = arch_f_n.split(".")[0]
 
         path = "/data/web_static/releases/"
-        put(archive_path, '/temp/')
-        run("mkdir -p {}{}/".format(path, arch_n_x))
-        run("tar -xzf /temp/{} -C {}{}".format(arch_path, path, arch_n_x))
-        run("rm  /temp/{}".format(archive_f_n))
-        run("mv {0}{1}/web_static/* {0}{1}/".format(path, arch_n_x))
-        run("rm -rf {0}{1}/web_static".format(path, arch_n_x))
-        run("rm -rf /data/web_static/current")
+        put(archive_path, '/temp/', use_sudo=True)
+        run("sudo mkdir -p {}{}/".format(path, arch_n_x))
+        run("sudo tar -xzf /temp/{} -C {}{}".format(arch_path, path, arch_n_x))
+        run("sudo rm  /temp/{}".format(archive_f_n))
+        run("sudo mv {0}{1}/web_static/* {0}{1}/".format(path, arch_n_x))
+        run("sudo rm -rf {0}{1}/web_static".format(path, arch_n_x))
+        run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s {}{}/ /data/web_static/current".format(path, arch_n_x))
         return True
     except Exception:
