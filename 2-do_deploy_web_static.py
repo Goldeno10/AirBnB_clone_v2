@@ -41,13 +41,13 @@ def do_deploy(archive_path):
 
         path = "/data/web_static/releases/"
         put(archive_path, "/tmp/", use_sudo=True)
-        sudo("mkdir -p {}{}/".format(path, arch_n_x))
-        sudo("tar -xzf /tmp/{} -C {}{}".format(arch_path, path, arch_n_x))
-        sudo("rm  /tmp/{}".format(archive_f_n))
-        sudo("mv {0}{1}/web_static/* {0}{1}/".format(path, arch_n_x))
-        sudo("rm -rf {0}{1}/web_static".format(path, arch_n_x))
-        sudo("rm -rf /data/web_static/current")
-        sudo("ln -s {}{}/ /data/web_static/current".format(path, arch_n_x))
+        run("mkdir -p {}{}/".format(path, arch_n_x))
+        run("tar -xzf /tmp/{} -C {}{}".format(arch_path, path, arch_n_x))
+        run("rm  /tmp/{}".format(archive_f_n))
+        run("mv {0}{1}/web_static/* {0}{1}/".format(path, arch_n_x))
+        run("rm -rf {0}{1}/web_static".format(path, arch_n_x))
+        run("rm -rf /data/web_static/current")
+        run("ln -s {}{}/ /data/web_static/current".format(path, arch_n_x))
         print("New version deployed!")
         return True
     except Exception:
