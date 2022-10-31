@@ -47,7 +47,7 @@ def do_deploy(archive_path):
         run("mv {0}{1}/web_static/* {0}{1}/".format(path, arch_n_x))
         run("rm -rf {0}{1}/web_static".format(path, arch_n_x))
         run("rm -rf /data/web_static/current")
-        run("sudo ln -s {}{} /data/web_static/current".format(path, arch_n_x))
+        run("sudo ln -s {}{}/ /data/web_static/current".format(path, arch_n_x))
         return True
     except Exception:
         return False
