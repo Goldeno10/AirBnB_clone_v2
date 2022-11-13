@@ -20,19 +20,19 @@ def hdnd():
 
 @app.route("/c/<text>", strict_slashes=False)
 def c_is_fun(text):
-    return f"C {escape(text.replace('_', ' '))}"
+    return "C " + text.replace('_', ' ')
 
 
 @app.route("/python", defaults={"text": "is cool"}, strict_slashes=False)
 @app.route("/python/<text>")
 def python_is_cool(text):
-    return f"Python {escape(text.replace('_', ' '))}"
+    return "Python " + text.replace('_', ' ')
 
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def is_a_number(n):
     if type(n) == int:
-        return f"{n} is a number"
+        return "{} is a number".format(n)
     return 404
 
 
