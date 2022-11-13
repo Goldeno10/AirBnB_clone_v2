@@ -13,6 +13,7 @@ if storage_t == "db":
 else:
     Base = object
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     if storage_t == 'db':
@@ -30,7 +31,8 @@ class BaseModel:
         else:
             for key in kwargs.keys():
                 if key in ["updated_at", "created_at"]:
-                    kwargs[key] = datetime.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
+                    kwargs[key] = datetime.strptime(kwargs[key],
+                                                    '%Y-%m-%dT%H:%M:%S.%f')
                 if key == "__class__":
                     del kwargs['__class__']
             self.__dict__.update(kwargs)

@@ -3,7 +3,6 @@
 from models import storage_t
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
-#from models.place import Place
 
 
 class Review(BaseModel, Base):
