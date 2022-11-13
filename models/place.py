@@ -6,8 +6,6 @@ from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 
 
-
-
 place_amenity = Table("place_amenity", Base.metadata,
                       Column("place_id", String(60),
                              ForeignKey("places.id"),
@@ -18,10 +16,11 @@ place_amenity = Table("place_amenity", Base.metadata,
                              primary_key=True,
                              nullable=False))
 
+
 class Place(BaseModel, Base):
     """ A place to stay """
-    if storage_t == 'db':
-        __tablename__ = 'places'
+    __tablename__ = 'places'
+    if storage_t and storage_t == 'db':
         city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
         name = Column(String(128), nullable=False)

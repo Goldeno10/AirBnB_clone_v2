@@ -15,7 +15,7 @@ from models.review import Review
 from models.amenity import Amenity
 
 
-class DbStorage:
+class DBStorage:
     """ A database Storage engine """
     __engine = None
     __session = None
@@ -27,11 +27,9 @@ class DbStorage:
         host = getenv('HBNB_MYSQL_HOST')
         db = getenv('HBNB_MYSQL_DB')
         env = getenv('HBNB_ENV')
-        self.__engine = ("mysql+mysqldb://{}:{}@{}/{}"
-                         .format(user, passwd, host, db))
-                        # pool_pre_ping=True)
-        Session = sessionmaker(bind=self.__engine)
-        self.__session = Session()
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
+                         .format(user, passwd, host, db),
+                         pool_pre_ping=True)
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -43,13 +41,16 @@ class DbStorage:
         dic = {}
         if not cls:
             for i in cls_list:
-                obj = self.__session.query(i).all()
-                key = f'{i}.{obj}'
-                dic[key] = obj
+                query = self.__session.query(eval(i))
+                for item in query:
+                    key = f'{type(i)}.{item.id}'
+                    dic[key] = query
         else:
-            obj = self.__session.query(i).all()
-            key = f'{i}.{obj}'
-            dic[key] = obj
+            cls = i if type(i) == str else eval(i)
+            query = self.__session.query(i)
+            for item in query:
+                key = f'{type(item)}.{item.id}'
+                dic[key] = query
         return (dic)
 
     def new(self, obj):
@@ -67,11 +68,10 @@ class DbStorage:
     def reload(self):
         """ Creates all tables in the database """
         Base.metadata.create_all(self.__engine)
-        session = sessionmaker(bind=self.__engine,
-                               expire_on_commit=False)
-        Sess_scope = scoped_session(session)
-        self.__session = Sess_scope
+        sess_s = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sess_s)
+        self.__session = Session()
 
     def close(self):
         """call remove() method on the private session attribute"""
-        self.__session.remove()
+        self.__session.close()
