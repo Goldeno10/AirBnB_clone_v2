@@ -20,13 +20,13 @@ def hdnd():
 
 @app.route("/c/<text>", strict_slashes=False)
 def c_is_fun(text):
-    return f"C {escape(text.replace('_', ' '))}"
+    return "C " + escape(text.replace('_', ' '))
 
 
 @app.route("/python", defaults={"text": "is cool"}, strict_slashes=False)
 @app.route("/python/<text>")
 def python_is_cool(text):
-    return f"Python {escape(text.replace('_', ' '))}"
+    return f"Python " + escape(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
