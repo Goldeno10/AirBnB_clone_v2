@@ -19,7 +19,7 @@ def hdnd():
 
 @app.route("/c/<text>", strict_slashes=False)
 def c_is_fun(text):
-    # text = text.replace("_", " ")
+    """display “C ”, followed by the value of the text variable"""
     return f"C {text.replace('_', ' ')}"
 
 
