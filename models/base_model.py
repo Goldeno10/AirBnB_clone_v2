@@ -2,15 +2,10 @@
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
-<<<<<<< HEAD
-from sqlalchemy.ext.declrative import declarative_base
-from sqlachemy import Column, Integer, String, Datetime
-=======
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 from models import storage_t
->>>>>>> a5af9a6d679eecac472d160f2138ad01b7d91fb2
 
 
 Base = declarative_base()
@@ -18,17 +13,11 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
-<<<<<<< HEAD
-    id = Column(String(60), nullable=false, primary_key=True)
-    created_at = Column(Datetime, nullable=false,  default=(datetime.utcnow()))
-    updated_at = Column(Datetime, nullable=false,  default=(datetime.utcnow()))
-=======
     if storage_t and storage_t == 'db':
         id = Column(String(60), primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow)
         updated_at = Column(DateTime, default=datetime.utcnow)
 
->>>>>>> a5af9a6d679eecac472d160f2138ad01b7d91fb2
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
@@ -69,13 +58,8 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-<<<<<<< HEAD
-        if '_sa_instance_state' in dictionary.keys():
-            del dictionary['_sa_instance_state']
-=======
         if "_sa_instance_state" in dictionary:
             del dictionary["_sa_instance_state"]
->>>>>>> a5af9a6d679eecac472d160f2138ad01b7d91fb2
         return dictionary
 
     def delete(self):
