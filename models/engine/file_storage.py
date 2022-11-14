@@ -33,7 +33,7 @@ class FileStorage:
     def delete(self, obj=None):
         """ Delete the current instance from the storage """
         if obj:
-            key = f'{type(obj).__name__}.{obj.id}'
+            key = f'{type(obj)}.{obj.id}'
             if key in self.__objects:
                 del self.__objects[key]
 
@@ -53,3 +53,7 @@ class FileStorage:
             with open(type(self).__file_path, "r") as f:
                 for key, value in json.load(f).items():
                     self.new(eval(value["__class__"])(**value))
+
+    def close(self):
+        """ Calls the reload method """
+        self.reload()
