@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models import storage_t
+from models import storage_t, storage
 from models.city import City
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
@@ -18,7 +18,7 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            all_c = models.storage.all()
+            all_c = storage.all()
             list_c = []
             result = []
             for key in all_c:
