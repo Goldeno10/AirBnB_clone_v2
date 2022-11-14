@@ -33,8 +33,10 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, default=0, nullable=False)
         latitude = Column(Float, nullable=False)
         longitude = Column(Float, nullable=False)
-        reviews = relationship('Review', cascade='all, delete, delete-orphan', backref='place')
-        amenities = relationship("Amenity", secondary=place_amenity, viewonly=False)
+        reviews = relationship('Review', cascade='all, delete, delete-orphan',
+                               backref='place')
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -58,6 +60,7 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     review_l.append(review)
             return review_l
+
         @property
         def amenities(self):
             """getter attribute returns the list of Amenity instances"""

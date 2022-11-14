@@ -13,6 +13,7 @@ if storage_t == "db":
 else:
     Base = object
 
+
 class BaseModel:
     """A base class for all hbnb models"""
     if storage_t == 'db':
@@ -28,13 +29,22 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-            for key in kwargs.keys():
-                if key in ["updated_at", "created_at"]:
-                    kwargs[key] = datetime.strptime(kwargs[key], '%Y-%m-%dT%H:%M:%S.%f')
-                if key == "__class__":
-                    del kwargs['__class__']
-                if id not in kwargs:
-                    kwargs[id] = str(uuid.uuid4())
+            if "updated_at" not in kwargs:
+                kwargs["updated_at"] = datetime.now()
+            else:
+                kwargs["updated_at"] = datetime.\
+                        strptime(kwargs["updated_at"],
+                                 '%Y-%m-%dT%H:%M:%S.%f')
+            if "created_at" not in kwargs:
+                kwargs["created_at"] = datetime.now()
+            else:
+                kwargs["created_at"] = datetime.\
+                        strptime(kwargs["created_at"],
+                                 '%Y-%m-%dT%H:%M:%S.%f')
+            if "__class__" in kwargs:
+                del kwargs['__class__']
+            if "id" not in kwargs:
+                kwargs["id"] = str(uuid.uuid4())
             self.__dict__.update(kwargs)
 
     def __str__(self):
